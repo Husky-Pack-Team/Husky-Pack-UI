@@ -34,7 +34,7 @@ function App() {
           }}
         />
         <Tab.Screen 
-          name="MyTasks" 
+          name="Tasks" 
           component={TaskScreen} 
           options={{
             tabBarLabel: 'My Tasks',
