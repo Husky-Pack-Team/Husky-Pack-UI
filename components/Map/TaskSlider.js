@@ -43,8 +43,11 @@ function TaskSlider({ tasks }) {
             <Image source={require('../../assets/verified-icon.png')} style={styles.image} />
           </View>}
         </View>
-        <Text style={styles.textStyle}>{task.title}</Text>
-        <Text>{task.description}</Text>
+        <Text style={styles.titleStyle}>{task.title}</Text>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionStyle}>{task.description}</Text>
+        </View>
+        <Text style={styles.priceStyle}>${task.price}</Text>
       </View>
     )
   }
@@ -79,17 +82,32 @@ function TaskSlider({ tasks }) {
       fontSize: 15,
       fontWeight: '200',
       color: "#4b2e83"
-    }
-    ,image: {
+    },
+    image: {
       height: 30,
       width: 30,
       borderRadius: 64,
       marginLeft: 10
     },
-    textStyle: {
-      fontSize: 30,
+    titleStyle: {
+      fontSize: 25,
       color: 'black',
-      zIndex: 2
+      zIndex: 2,
+      marginBottom: 10
+    },
+    descriptionStyle: {
+
+    },
+    descriptionContainer: {
+      maxHeight: 50
+    }, 
+    priceStyle: {
+      fontSize: 30,
+      color: 'green',
+      fontWeight: '400',
+      position: 'absolute',
+      bottom: 5,
+      padding: 20
     },
     boxWithShadow: {
       shadowColor: '#000',
