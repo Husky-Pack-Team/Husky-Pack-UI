@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, Button, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useState, useEffect} from 'react';
-//import TaskSlider from './Map/TaskSlider'
+import TaskSlider from './Map/TaskSlider'
 
 function HomeScreen({ navigation }) {
 
@@ -22,6 +22,7 @@ function HomeScreen({ navigation }) {
         "description": "Need coffee from Microsoft Cafe.",
         "when": "ASAP",
         "price": 7.50,
+        "verified": true,
         "latlng": { "latitude" : 47.653293783515785, "longitude" :  -122.3057501213684}
       },
       {
@@ -30,6 +31,7 @@ function HomeScreen({ navigation }) {
         "description": "Need Salmon to feed my bear.",
         "when": "14:00",
         "price": 50.00,
+        "verified": true,
         "latlng": { "latitude" : 47.65525229281891, "longitude" :  -122.30880783957718}
       },
       {
@@ -38,6 +40,7 @@ function HomeScreen({ navigation }) {
         "description": "Need someone to help move my sofa.",
         "when": "18:00",
         "price": 10.00,
+        "verified": false,
         "latlng": { "latitude" : 47.6577888506854, "longitude" :  -122.30641530919283}
       }
     ])
@@ -54,7 +57,7 @@ function HomeScreen({ navigation }) {
         <Image source={require('../assets/add-icon-2.png')} style={styles.image} />
       </TouchableOpacity> 
       <View style={styles.sliderContainer}>
-        
+        <TaskSlider tasks={tasks}/>
       </View>
       <MapView 
         style={styles.map}
@@ -120,8 +123,10 @@ const styles = StyleSheet.create({
     height: '30%',
     position: 'absolute',
     bottom: 0,
-    backgroundColor: 'red',
-    zIndex: 1
+    zIndex: 1,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 
 });
