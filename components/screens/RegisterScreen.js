@@ -5,6 +5,7 @@ import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Button from '../components/Button'
+import Paragraph from '../components/Paragraph'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
@@ -31,7 +32,6 @@ export default function RegisterScreen({ navigation }) {
       return
     }
     // register
-    alert("Registering...");
     const res = await fetch('https://huskypackapi.azurewebsites.net/api/User?function=add&first-name=' + firstName  + '&last-name=' + endName + '&email=' + email.value + '&password=' + password.value)
     const json = await res.text();
     
@@ -51,6 +51,9 @@ export default function RegisterScreen({ navigation }) {
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Create Account</Header>
+      <Paragraph>
+        Please enter your <Text style={{fontWeight: 'bold'}}>UW NetID</Text> as your email and password to be verified as a UW student.
+      </Paragraph>
       <TextInput
         label="Name"
         returnKeyType="next"
