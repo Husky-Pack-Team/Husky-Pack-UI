@@ -6,7 +6,7 @@ import TaskSlider from './Map/TaskSlider';
 import AddTaskBox from "./Map/AddTaskBox";
 import * as Location from 'expo-location';
 
-function HomeScreen({ tasks }) {
+function HomeScreen({ tasks, userName}) {
 
   const [activeIndex, setActiveIndex] = useState(0); 
   const [location, setLocation] = useState({"coords":{
@@ -64,7 +64,7 @@ function HomeScreen({ tasks }) {
       </View>
 
       <View key = {2001} style={styles.sliderContainer}>
-        <TaskSlider tasks={tasks} region={region} setRegion={setRegion} active={activeIndex} firstItem={activeIndex} enableMomentum={true}/>
+        <TaskSlider tasks={tasks} region={region} setRegion={setRegion} active={activeIndex} firstItem={activeIndex} enableMomentum={true} userName={userName}/>
       </View>
       <MapView 
         style={styles.map}

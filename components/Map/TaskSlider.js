@@ -3,21 +3,27 @@ import {useState} from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-function TaskSlider({ tasks, region, setRegion }) {
+function TaskSlider({ tasks, region, setRegion, userName }) {
 
   const [activeIndex, setIndex] = useState(0);
+  
+  const [update, setUpdate] = useState(0);
 
   function goToTaskMarker(id) {
     setRegion(Object.assign({"latitudeDelta": 0.02, "longitudeDelta": 0.02}, tasks.find(task => task.id == id).latlng))
   }
 
   function acceptTask(id) {
-
+    tasks.find(task => task.id == id).acceptor = userName
+    setUpdate(update+1);
   }
 
 
   function _renderItem(data, index){
     const task = data.item;
+    console.log(task)
+    console.log(userName)
+   
     return (
       <TouchableOpacity
         activeOpacity={0.9}
@@ -37,10 +43,10 @@ function TaskSlider({ tasks, region, setRegion }) {
           </View>
           <Text style={styles.priceStyle}>${task.price}</Text>
           <TouchableOpacity
-            style={styles.acceptBtn}
+            style={task.acceptor != "" ? [styles.acceptBtn, {backgroundColor: "#cc9900"}] : styles.acceptBtn}
             onPress={() => acceptTask(task.id)}
           >
-            <Text style={styles.btnTextStyle}>Accept</Text>
+            <Text style={styles.btnTextStyle}>{task.acceptor === "" ? "Accept" : "Chat"}</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -68,7 +74,10 @@ function TaskSlider({ tasks, region, setRegion }) {
       padding: 3,
       marginBottom: 10,
       marginRight: 10,
-      paddingLeft: 30
+      flex: 1,
+      justifyContent: 'center',
+      alignContent: 'center',
+      flexDirection: 'row'
     },
     btnTextStyle: {
       color: 'white',
