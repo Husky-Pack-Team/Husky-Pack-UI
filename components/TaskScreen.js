@@ -39,11 +39,10 @@ function TaskScreen({ tasks, userName}) {
   })
 
   function _renderItem(item, index) {
-    console.log(item + ' ' + index);
     return (
       item.name === userName &&
-      <View style={styles.itemStyle}>
-        <Text key={index} style={styles.titleStyle}>{item.title}</Text>
+      <View key={item.id} style={styles.itemStyle}>
+        <Text style={styles.titleStyle}>{item.title}</Text>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionStyle}>{item.description}</Text>
         </View>

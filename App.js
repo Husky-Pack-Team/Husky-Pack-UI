@@ -25,6 +25,8 @@ function App() {
   }
 
   const [name, setName] = useState("Lawrence Qupty");
+  const [field, setField] = useState("Computer Science");
+  const [interests, setInterests] = useState("Centering Buttons")
   const [id, setId] = useState(0);
 
   // Stores 'tasks' state, an obj representing all tasks around campus
@@ -43,6 +45,7 @@ function App() {
         "description": "Need coffee from Microsoft Cafe.",
         "when": "ASAP",
         "price": 7.50,
+        "field": "Computer Science",
         "verified": true,
         "latlng": { "latitude" : 47.653293783515785, "longitude" :  -122.3057501213684},
         "id": 123,
@@ -54,6 +57,7 @@ function App() {
         "description": "Need Salmon to feed my bear.",
         "when": "14:00",
         "price": 50.00,
+        "field": "Computer Science",
         "verified": true,
         "latlng": { "latitude" : 47.65525229281891, "longitude" :  -122.30880783957718},
         "id": 456,
@@ -82,6 +86,10 @@ function App() {
               children={() => <SettingsScreen
                   name={name}
                   setName={setName}
+                  field={field}
+                  setField={setField}
+                  interests={interests}
+                  setInterests={setInterests}
               />}
               options={{
                 tabBarLabel: 'Settings',
