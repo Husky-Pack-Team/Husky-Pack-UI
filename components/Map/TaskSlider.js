@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 function TaskSlider({ tasks, region, setRegion }) {
@@ -8,7 +8,11 @@ function TaskSlider({ tasks, region, setRegion }) {
   const [activeIndex, setIndex] = useState(0);
 
   function goToTaskMarker(id) {
-    setRegion(Object.assign({"latitudeDelta": 0.0922, "longitudeDelta": 0.0421}, tasks.find(task => task.id == id).latlng))
+    setRegion(Object.assign({"latitudeDelta": 0.02, "longitudeDelta": 0.02}, tasks.find(task => task.id == id).latlng))
+  }
+
+  function acceptTask(id) {
+
   }
 
 
@@ -32,6 +36,12 @@ function TaskSlider({ tasks, region, setRegion }) {
             <Text style={styles.descriptionStyle}>{task.description}</Text>
           </View>
           <Text style={styles.priceStyle}>${task.price}</Text>
+          <TouchableOpacity
+            style={styles.acceptBtn}
+            onPress={() => acceptTask(task.id)}
+          >
+            <Text style={styles.btnTextStyle}>Accept</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     )
@@ -46,6 +56,24 @@ function TaskSlider({ tasks, region, setRegion }) {
       marginLeft: 25,
       marginRight: 25,
       zIndex: 1
+    },
+    acceptBtn: {
+      position: 'absolute',
+      right: 10,
+      bottom: 10,
+      backgroundColor: '#6600cc',
+      width: 140,
+      height: 40,
+      borderRadius: 10,
+      padding: 3,
+      marginBottom: 10,
+      marginRight: 10,
+      paddingLeft: 30
+    },
+    btnTextStyle: {
+      color: 'white',
+      fontSize: 25,
+      fontFamily: "Avenir"
     },
     headerContainer: {
       flexDirection: 'row',
