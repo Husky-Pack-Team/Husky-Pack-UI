@@ -17,16 +17,27 @@ export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
-  const onSignUpPressed = () => {
+  const onSignUpPressed = async () => {
     const nameError = nameValidator(name.value)
+    const firstName = name.value.split(" ")[0];
+    const endName = name.value.split(" ")[1];
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError || nameError) {
+    if (name.value.split(" ").length != 2 || emailError || passwordError || nameError) {
       setName({ ...name, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      alert("Something broke! Try again!")
       return
     }
+    // register
+    alert("Registering: " + firstName + " " + endName + " with email " + email.value + " and pass " + password.value);
+    const stat = await fetch('https://huskypackapi.azurewebsites.net/api/User?function=add&first-name=' + firstName  + '&last-name=' + endName + '&email=' + email.value + '&password=' + password.value)
+    console.log(stat);
+    alert(stat);
+    if (!stat.includes("User successfully added")) {
+      alert("Something broke! Try again!")
+    } 
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],

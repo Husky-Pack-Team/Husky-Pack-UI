@@ -15,12 +15,14 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
-  const onLoginPressed = () => {
+  const onLoginPressed = async () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
+    const error = await fetch("https://huskypackapi.azurewebsites.net/api/user?function=authenticate&email=" + email.value + "&password=" + password.value);
+    if (error == "Incorrect credentials" || emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      alert("Something went wrong!");
       return
     }
     navigation.reset({

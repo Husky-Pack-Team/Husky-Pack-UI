@@ -10,12 +10,16 @@ import { emailValidator } from '../helpers/emailValidator'
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
 
-  const sendResetPasswordEmail = () => {
+  const sendResetPasswordEmail = async () => {
     const emailError = emailValidator(email.value)
     if (emailError) {
       setEmail({ ...email, error: emailError })
       return
     }
+    // reset password
+    // TODO: implement sending email to given user
+    // For fixing password: https://huskypackapi.azurewebsites.net/api/user/configure?id=0&password=superhusky
+    const stat = await fetch("")
     navigation.navigate('LoginScreen')
   }
 
