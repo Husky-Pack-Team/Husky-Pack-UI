@@ -24,6 +24,7 @@
     "react-native": "0.64.2",
     "react-native-currency-input": "^1.0.1",
     "react-native-elements": "^3.4.2",
+    "react-native-fading-edge": "^1.0.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-maps": "0.28.0",
     "react-native-paper": "^4.9.2",
