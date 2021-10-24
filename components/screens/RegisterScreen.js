@@ -27,17 +27,19 @@ export default function RegisterScreen({ navigation }) {
       setName({ ...name, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
-      alert("Something broke! Try again!")
+      alert("Something broke! Please confirm your inputs are valid.")
       return
     }
     // register
-    alert("Registering: " + firstName + " " + endName + " with email " + email.value + " and pass " + password.value);
-    const stat = await fetch('https://huskypackapi.azurewebsites.net/api/User?function=add&first-name=' + firstName  + '&last-name=' + endName + '&email=' + email.value + '&password=' + password.value)
-    console.log(stat);
-    alert(stat);
-    if (!stat.includes("User successfully added")) {
-      alert("Something broke! Try again!")
-    } 
+    alert("Registering...");
+    const res = await fetch('https://huskypackapi.azurewebsites.net/api/User?function=add&first-name=' + firstName  + '&last-name=' + endName + '&email=' + email.value + '&password=' + password.value)
+    const json = await res.text();
+    
+    if (!json.includes("User successfully added")) {
+      alert("Registration failed. Please try again.")
+    } else {
+      alert("Success!");
+    }
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],

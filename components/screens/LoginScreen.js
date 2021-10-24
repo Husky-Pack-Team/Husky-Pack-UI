@@ -22,9 +22,10 @@ export default function LoginScreen({ navigation }) {
     if (error == "Incorrect credentials" || emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
-      alert("Something went wrong!");
+      alert("Something broke! Please confirm your inputs are valid.");
       return
     }
+    alert("Login Successful! Welcome Back!")
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
