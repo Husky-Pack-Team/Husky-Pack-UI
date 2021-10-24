@@ -3,13 +3,14 @@ import {useState} from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-function TaskSlider({ tasks }) {
+function TaskSlider({ tasks, region, setRegion }) {
 
   const [activeIndex, setIndex] = useState(0);
 
   function goToTaskMarker(id) {
-    console.log(id);
+    setRegion(Object.assign({"latitudeDelta": 0.0922, "longitudeDelta": 0.0421}, tasks.find(task => task.id == id).latlng))
   }
+
 
   function _renderItem(data, index){
     const task = data.item;
