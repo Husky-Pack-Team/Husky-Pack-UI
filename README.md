@@ -16,4 +16,4 @@
 - In the home screen, you can find tasks set up by other UW students
 - By clicking the plus icon in the top-left corner, you can add a new task by filling out the form and submitting
 - In the rightmost tab, the user's tasks will be displayed, and can be added/deleted
-- In the leftmost tab, the user's settings can be viewed and edited.
+- In the leftmost tab, the user's settings can be viewed and edited
