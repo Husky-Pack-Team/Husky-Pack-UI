@@ -13,10 +13,10 @@ const Tab = createBottomTabNavigator();
 function App() {
   async function fetchName() {
       //todo fetch username
-      return "Lawrence"
+      return "Lawrence Qupty"
   }
 
-  const [name, setName] = useState("Lawrence");
+  const [name, setName] = useState("Lawrence Qupty");
 
   // Stores 'tasks' state, an obj representing all tasks around campus
   const [tasks, setTasks] = useState([]);
@@ -88,8 +88,11 @@ function App() {
           }}
         />
         <Tab.Screen 
-          name="MyTasks" 
-          component={TaskScreen} 
+          name="My Tasks" 
+          children={() => <TaskScreen
+            tasks={tasks}
+            userName={name}
+          />} 
           options={{
             tabBarLabel: 'My Tasks',
             tabBarIcon: ({ color, size }) => (
