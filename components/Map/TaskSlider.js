@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 function TaskSlider({ tasks }) {
@@ -35,26 +35,28 @@ function TaskSlider({ tasks }) {
   function _renderItem(data, index){
     const task = data.item;
     return (
-      <View style={[styles.itemStyle, styles.boxWithShadow]}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{task.name}</Text>
-          {task.verified && <View style={styles.verifiedContainer}>
-            <Text style={styles.verifiedText}>Verified Student</Text>
-            <Image source={require('../../assets/verified-icon.png')} style={styles.image} />
-          </View>}
+      <TouchableOpacity>
+        <View style={[styles.itemStyle, styles.boxWithShadow]}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>{task.name}</Text>
+            {task.verified && <View style={styles.verifiedContainer}>
+              <Text style={styles.verifiedText}>Verified Student</Text>
+              <Image source={require('../../assets/verified-icon.png')} style={styles.image} />
+            </View>}
+          </View>
+          <Text style={styles.titleStyle}>{task.title}</Text>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.descriptionStyle}>{task.description}</Text>
+          </View>
+          <Text style={styles.priceStyle}>${task.price}</Text>
         </View>
-        <Text style={styles.titleStyle}>{task.title}</Text>
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.descriptionStyle}>{task.description}</Text>
-        </View>
-        <Text style={styles.priceStyle}>${task.price}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
   const styles = StyleSheet.create({
     itemStyle: {
-      backgroundColor:'floralwhite',
+      backgroundColor:'white',
       borderRadius: 5,
       height: 200,
       padding: 20,

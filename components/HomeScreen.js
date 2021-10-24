@@ -2,9 +2,27 @@ import * as React from 'react';
 import { View, Text, Button, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useState, useEffect} from 'react';
-import TaskSlider from './Map/TaskSlider'
+import TaskSlider from './Map/TaskSlider';
+import * as Location from 'expo-location';
 
 function HomeScreen({ tasks }) {
+
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log(location);
+    })();
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -30,12 +48,17 @@ function HomeScreen({ tasks }) {
           <Marker
             key={index}
             coordinate={marker.latlng}
-            title={marker.title}
+            title={"Task: " + marker.title}
             description={marker.description}
           >
             <Image source={require('../assets/marker-icon.png')} style={{height: 35, width:35 }} />
           </Marker>
         ))}
+          <Marker
+            key={-1}
+            coordinate={{ "latitude" : location ? location.coords.latitude : 0, "longitude" :  location ? location.coords.longitude : 0}}
+            title={"Your Location"}
+          />
       </MapView>
     </View>
   );
