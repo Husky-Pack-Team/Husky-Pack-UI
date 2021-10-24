@@ -8,13 +8,9 @@ function TaskSlider({ tasks, region, setRegion }) {
   const [activeIndex, setIndex] = useState(0);
 
   function goToTaskMarker(id) {
-    setRegion(tasks.find(task => task.id == id).latlng)
+    setRegion(Object.assign({"latitudeDelta": 0.0922, "longitudeDelta": 0.0421}, tasks.find(task => task.id == id).latlng))
   }
 
-  function animateToMarker(cur_latlng, new_latlng) {
-    let i = 10;
-    
-  }
 
   function _renderItem(data, index){
     const task = data.item;

@@ -8,14 +8,20 @@ import * as Location from 'expo-location';
 
 function HomeScreen({ tasks }) {
 
-  const [location, setLocation] = useState({"coords":{"latitude": 0, "longitude": 0}});
+  const [activeIndex, setActiveIndex] = useState(0); 
+  const [location, setLocation] = useState({"coords":{
+    latitude: 47.6553,
+    longitude: -122.3035,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  }});
   const [errorMsg, setErrorMsg] = useState(null);
   const [region, setRegion] = useState(
     {
-      latitude: 47.6553,
-      longitude: -122.3035,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      "latitude": 47.6553,
+      "longitude": -122.3035,
+      "latitudeDelta": 0.0922,
+      "longitudeDelta": 0.0421,
     }
   )
   const [doAddTask, setAddTask] = useState(false);
@@ -36,7 +42,12 @@ function HomeScreen({ tasks }) {
 
 
   function toggleAddPost() {
-    setAddTask(!doAddTask);
+    setAddTask(!doAddTask)
+  }
+
+  function goToSliderTask(i) {
+    console.log(i)
+    setActiveIndex(i)
   }
 
   return (
@@ -48,26 +59,31 @@ function HomeScreen({ tasks }) {
         <Image source={require('../assets/add-icon-2.png')} style={doAddTask ? styles.imageRotated : styles.image} />
       </TouchableOpacity>
 
-      <View style={doAddTask ? styles.addTaskBox : styles.hide}>
+      <View key= {200} style={doAddTask ? styles.addTaskBox : styles.hide}>
         <AddTaskBox/>
       </View>
 
-      <View style={styles.sliderContainer}>
-        <TaskSlider tasks={tasks} region={region} setRegion={setRegion}/>
+      <View key = {2001} style={styles.sliderContainer}>
+        <TaskSlider tasks={tasks} region={region} setRegion={setRegion} active={activeIndex} firstItem={activeIndex} enableMomentum={true}/>
       </View>
       <MapView 
         style={styles.map}
         region={region} 
       >
         {tasks.map((marker, index) => (
-          <Marker
+          <TouchableOpacity 
             key={index}
-            coordinate={marker.latlng}
-            title={marker.title}
-            description={marker.description}
+            onPress={() => goToSliderTask(index)}
           >
-            <Image source={require('../assets/marker-icon.png')} style={{height: 35, width:35 }} />
-          </Marker>
+            <Marker
+              
+              coordinate={marker.latlng}
+              title={marker.title}
+              description={marker.description}
+            >
+              <Image source={require('../assets/marker-icon.png')} style={{height: 35, width:35 }} />
+            </Marker>
+          </TouchableOpacity>
         ))}
         <Marker
             key={-1}
