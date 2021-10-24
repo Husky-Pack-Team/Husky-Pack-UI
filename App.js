@@ -5,18 +5,58 @@ import SettingsScreen from './components/SettingsScreen'
 import HomeScreen from './components/HomeScreen'
 import TaskScreen from './components/TaskScreen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 
 const Tab = createBottomTabNavigator();
 
 function App() {
-    async function fetchName() {
-        //todo fetch username
-        return "Lawrence"
-    }
+  async function fetchName() {
+      //todo fetch username
+      return "Lawrence"
+  }
 
-    const [name, setName] = useState("Lawrence");
+  const [name, setName] = useState("Lawrence");
+
+  // Stores 'tasks' state, an obj representing all tasks around campus
+  const [tasks, setTasks] = useState([]);
+
+  // This will fire only on mount. 
+  // Updates 'tasks' state according to database.
+  useEffect(() => {
+    // 
+    // TODO: fetch back-end tasks on timer
+    // Temporary:
+    setTasks([
+      {
+        "name": "Amit Ferman",
+        "title": "Coffee",
+        "description": "Need coffee from Microsoft Cafe.",
+        "when": "ASAP",
+        "price": 7.50,
+        "verified": true,
+        "latlng": { "latitude" : 47.653293783515785, "longitude" :  -122.3057501213684}
+      },
+      {
+        "name": "Daniel Berezansky",
+        "title": "Food",
+        "description": "Need Salmon to feed my bear.",
+        "when": "14:00",
+        "price": 50.00,
+        "verified": true,
+        "latlng": { "latitude" : 47.65525229281891, "longitude" :  -122.30880783957718}
+      },
+      {
+        "name": "Lawrence Qupty",
+        "title": "Moving",
+        "description": "Need someone to help move my sofa.",
+        "when": "18:00",
+        "price": 10.00,
+        "verified": false,
+        "latlng": { "latitude" : 47.6577888506854, "longitude" :  -122.30641530919283}
+      }
+    ])
+  }, [])
 
   return (
     <NavigationContainer>
@@ -37,7 +77,9 @@ function App() {
           </Tab.Screen>
           <Tab.Screen
           name="Home" 
-          component={HomeScreen} 
+          children={() => <HomeScreen
+            tasks={tasks}
+          />} 
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
