@@ -27,7 +27,7 @@ function SettingsScreen({name, setName, field, setField, interests, setInterests
         flex: 1
       },
       settings: { 
-        flex: 1, 
+        flex: 1,
         alignItems: 'center', 
         justifyContent: 'flex-start', 
         backgroundColor: 'white', 
@@ -43,7 +43,8 @@ function SettingsScreen({name, setName, field, setField, interests, setInterests
       },
       inputCont: {
         width: '80%',
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
+        height: '70%'
       }
     })
 
