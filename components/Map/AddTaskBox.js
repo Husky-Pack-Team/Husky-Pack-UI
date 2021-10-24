@@ -1,10 +1,14 @@
 import * as React from 'react';
 import {Keyboard, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import {Text, Input } from 'react-native-elements';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CurrencyInput from "react-native-currency-input/src/CurrencyInput";
 
 function AddTaskBox({createNewTask}) {
+
+    useEffect(() => {
+
+    }, [])
 
     // Task description
     const [desc, setDesc] = useState("");
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         fontWeight: '200',
-        fontFamily: 'Roboto'
+        fontFamily: 'San Francisco'
 
     }, itemStyle: {
         backgroundColor:'white',
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         marginBottom: 10,
-        fontFamily: 'Roboto'
+        fontFamily: 'San Francisco'
     },
     headerText: {
         fontSize: 15,
@@ -145,7 +149,7 @@ const styles = StyleSheet.create({
     btnTextStyle: {
         color: 'white',
         fontSize: 20,
-        fontFamily: "Roboto"
+        fontFamily: "San Francisco"
     },
 })
 

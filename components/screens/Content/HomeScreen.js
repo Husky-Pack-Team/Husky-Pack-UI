@@ -6,7 +6,7 @@ import TaskSlider from '../../Map/TaskSlider';
 import AddTaskBox from "../../Map/AddTaskBox";
 import * as Location from 'expo-location';
 
-function HomeScreen({ tasks, userName, id}) {
+function HomeScreen({ tasks, userName, id, addTask}) {
 
   const [activeIndex, setActiveIndex] = useState(0); 
   const [location, setLocation] = useState({"coords":{
@@ -35,7 +35,6 @@ function HomeScreen({ tasks, userName, id}) {
       }
 
       let loc = await Location.getCurrentPositionAsync({});
-      console.log(loc);
       setLocation(loc);
     })();
   }, []);
@@ -52,14 +51,20 @@ function HomeScreen({ tasks, userName, id}) {
 
   async function createTask(title, desc, cost) {
       const response = await fetch('https://huskypackapi.azurewebsites.net//api//task?function=add' +
+          '&id=' + id +
           '&title=' + title +
           '&description=' + desc +
-          '&cost=' + cost +
-          '&id=' + id, {
+          '&cost=' + cost, {
           method: 'POST',
         });
 
-      alert(response);
+
+      if(response.ok) {
+        alert(JSON.stringify(response));
+
+        addTask(JSON.parse(response));
+      }
+
   }
 
   return (
@@ -72,7 +77,7 @@ function HomeScreen({ tasks, userName, id}) {
       </TouchableOpacity>
 
       <View key= {200} style={doAddTask ? styles.addTaskBox : styles.hide}>
-        <AddTaskBox createNewTask={createTask()}/>
+        <AddTaskBox createNewTask={createTask}/>
       </View>
 
       <View key = {2001} style={styles.sliderContainer}>
