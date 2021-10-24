@@ -10,31 +10,45 @@ import {
   ResetPasswordScreen,
   Dashboard,
 } from './components/screens'
+import {Keyboard, TouchableWithoutFeedback, View} from "react-native";
 
-  const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-  function App() {
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{width: '100%', height: '100%'}}>
+        {children}
+      </View>
+    </TouchableWithoutFeedback>
+);
+
+
+function App() {
+
+
 
   return (
-      <Provider theme={theme}>
-        <NavigationContainer independent="true">
-          <Stack.Navigator
-            initialRouteName="StartScreen"
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="StartScreen" component={StartScreen} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen
-              name="ResetPasswordScreen"
-              component={ResetPasswordScreen}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+      <DismissKeyboard>
+        <Provider theme={theme}>
+            <NavigationContainer independent="true">
+              <Stack.Navigator
+                initialRouteName="StartScreen"
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="StartScreen" component={StartScreen} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+                <Stack.Screen name="Dashboard" component={Dashboard} />
+                <Stack.Screen
+                  name="ResetPasswordScreen"
+                  component={ResetPasswordScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </Provider>
+        </DismissKeyboard>
     )
   }
 
