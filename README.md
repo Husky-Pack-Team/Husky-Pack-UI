@@ -1,4 +1,4 @@
-# Husky Pack / husky-pack-ui
+## husky-pack-ui
 
 # Accessing the Application #
 
