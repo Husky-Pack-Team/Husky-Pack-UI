@@ -2,8 +2,8 @@ import * as React from 'react';
 import { View, Text, Button, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useState, useEffect} from 'react';
-import TaskSlider from './Map/TaskSlider';
-import AddTaskBox from "./Map/AddTaskBox";
+import TaskSlider from '../../Map/TaskSlider';
+import AddTaskBox from "../../Map/AddTaskBox";
 import * as Location from 'expo-location';
 
 function HomeScreen({ tasks, userName}) {
@@ -56,7 +56,7 @@ function HomeScreen({ tasks, userName}) {
         onPress={toggleAddPost}
         style={ [styles.imageContainer, styles.boxWithShadow] }
       >
-        <Image source={require('../assets/add-icon-2.png')} style={doAddTask ? styles.imageRotated : styles.image} />
+        <Image source={require('../../../assets/add-icon-2.png')} style={doAddTask ? styles.imageRotated : styles.image} />
       </TouchableOpacity>
 
       <View key= {200} style={doAddTask ? styles.addTaskBox : styles.hide}>
@@ -81,7 +81,7 @@ function HomeScreen({ tasks, userName}) {
               title={marker.title}
               description={marker.description}
             >
-              <Image source={require('../assets/marker-icon.png')} style={{height: 35, width:35 }} />
+              <Image source={require('../../../assets/marker-icon.png')} style={{height: 35, width:35 }} />
             </Marker>
           </TouchableOpacity>
         ))}

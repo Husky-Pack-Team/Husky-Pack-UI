@@ -25,7 +25,7 @@ function SettingsScreen({name, setName, field, setField, interests, setInterests
     //TODO Show Profile Details, Add Photo, Verification, Add Affiliations, Major, more profile details, etc.
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', padding: 20}}>
-        <Image source={require('../assets/husky-icon.jpg')} style={styles.image} />
+        <Image source={require('../../../assets/husky-icon.jpg')} style={styles.image} />
         <Text style={styles.title}>Boundless Husky</Text>
         <Input
             value={name}
