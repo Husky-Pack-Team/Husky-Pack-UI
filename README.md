@@ -6,8 +6,8 @@
 
 1. Download "Expo Go" from your phone's app store
 2. Visit https://expo.dev/@aferman/husky-pack-ui
-3. Scan the QR code on the screen with your mobile device
-4. When prompted, open Expo Go to access the application
+3. Scan the QR code on the screen with your mobile device (compatible w/Android only due to Apple privacy constraints)
+5. When prompted, open Expo Go to access the application
 
 ############################
 #        USE PRODUCT       #
