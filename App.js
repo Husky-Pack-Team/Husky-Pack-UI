@@ -6,9 +6,17 @@ import HomeScreen from './components/HomeScreen'
 import TaskScreen from './components/TaskScreen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useState, useEffect} from "react";
-
+import {View, Keyboard, TouchableWithoutFeedback} from "react-native";
 
 const Tab = createBottomTabNavigator();
+
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{width: '100%', height: '100%'}}>
+          {children}
+        </View>
+    </TouchableWithoutFeedback>
+);
 
 function App() {
   async function fetchName() {
@@ -62,8 +70,9 @@ function App() {
   }, [])
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home">
+    <DismissKeyboard>
+      <NavigationContainer>
+        <Tab.Navigator initialRouteName="Home">
           <Tab.Screen
               name="Settings"
               children={() => <SettingsScreen
@@ -73,38 +82,39 @@ function App() {
               options={{
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="account-settings" color={color} size={size} />
+                    <MaterialCommunityIcons name="account-settings" color={color} size={size} />
                 ),
               }}
           >
           </Tab.Screen>
           <Tab.Screen
-          name="Home" 
-          children={() => <HomeScreen
-            tasks={tasks}
-          />} 
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen 
-          name="My Tasks" 
-          children={() => <TaskScreen
-            tasks={tasks}
-            userName={name}
-          />} 
-          options={{
-            tabBarLabel: 'My Tasks',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="bell" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+              name="Home"
+              children={() => <HomeScreen
+                  tasks={tasks}
+              />}
+              options={{
+                tabBarLabel: 'Home',
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="home" color={color} size={size} />
+                ),
+              }}
+          />
+          <Tab.Screen
+              name="My Tasks"
+              children={() => <TaskScreen
+                  tasks={tasks}
+                  userName={name}
+              />}
+              options={{
+                tabBarLabel: 'My Tasks',
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="bell" color={color} size={size} />
+                ),
+              }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </DismissKeyboard>
   );
 }
 
