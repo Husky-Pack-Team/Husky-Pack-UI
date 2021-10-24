@@ -3,12 +3,17 @@ import {useState} from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-function TaskSlider({ tasks }) {
+function TaskSlider({ tasks, region, setRegion }) {
 
   const [activeIndex, setIndex] = useState(0);
 
   function goToTaskMarker(id) {
-    console.log(id);
+    setRegion(tasks.find(task => task.id == id).latlng)
+  }
+
+  function animateToMarker(cur_latlng, new_latlng) {
+    let i = 10;
+    
   }
 
   function _renderItem(data, index){

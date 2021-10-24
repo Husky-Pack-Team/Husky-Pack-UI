@@ -9,6 +9,14 @@ function HomeScreen({ tasks }) {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [region, setRegion] = useState(
+    {
+      latitude: 47.6553,
+      longitude: -122.3035,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }
+  )
 
   useEffect(() => {
     (async () => {
@@ -33,16 +41,11 @@ function HomeScreen({ tasks }) {
         <Image source={require('../assets/add-icon-2.png')} style={styles.image} />
       </TouchableOpacity> 
       <View style={styles.sliderContainer}>
-        <TaskSlider tasks={tasks}/>
+        <TaskSlider tasks={tasks} region={region} setRegion={setRegion}/>
       </View>
       <MapView 
         style={styles.map}
-        initialRegion={{
-          latitude: 47.6553,
-          longitude: -122.3035,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }} 
+        region={region} 
       >
         {tasks.map((marker, index) => (
           <Marker
