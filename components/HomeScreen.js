@@ -2,10 +2,10 @@ import * as React from 'react';
 import { View, Text, Button, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useState, useEffect} from 'react';
-import TaskSlider from './Map/TaskSlider';
-import * as Location from 'expo-location';
+import TaskSlider from './Map/TaskSlider'
+import AddTaskBox from "./Map/AddTaskBox";
 
-function HomeScreen({ tasks }) {
+function HomeScreen({ navigation }) {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -17,29 +17,69 @@ function HomeScreen({ tasks }) {
       longitudeDelta: 0.0421,
     }
   )
+  // Stores 'tasks' state, an obj representing all tasks around campus
+  const [tasks, setTasks] = useState([]);
 
+  const [doAddTask, setAddTask] = useState(false);
+
+  // This will fire only on mount. 
+  // Updates 'tasks' state according to database.
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
+    // 
+    // TODO: fetch back-end tasks on timer
+    // Temporary:
+    setTasks([
+      {
+        "name": "Amit Ferman",
+        "title": "Coffee",
+        "description": "Need coffee from Microsoft Cafe.",
+        "when": "ASAP",
+        "price": 7.50,
+        "verified": true,
+        "latlng": { "latitude" : 47.653293783515785, "longitude" :  -122.3057501213684}
+      },
+      {
+        "name": "Daniel Berezansky",
+        "title": "Food",
+        "description": "Need Salmon to feed my bear.",
+        "when": "14:00",
+        "price": 50.00,
+        "verified": true,
+        "latlng": { "latitude" : 47.65525229281891, "longitude" :  -122.30880783957718}
+      },
+      {
+        "name": "Lawrence Qupty",
+        "title": "Moving",
+        "description": "Need someone to help move my sofa.",
+        "when": "18:00",
+        "price": 10.00,
+        "verified": false,
+        "latlng": { "latitude" : 47.6577888506854, "longitude" :  -122.30641530919283}
       }
+    ])
+  }, [])
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log(location);
-    })();
-  }, []);
+
+
+
+
+  function toggleAddPost() {
+    setAddTask(!doAddTask);
+  }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <TouchableOpacity 
-        onPress={createPost}
+        onPress={toggleAddPost}
         style={ [styles.imageContainer, styles.boxWithShadow] }
       >
-        <Image source={require('../assets/add-icon-2.png')} style={styles.image} />
-      </TouchableOpacity> 
+        <Image source={require('../assets/add-icon-2.png')} style={doAddTask ? styles.imageRotated : styles.image} />
+      </TouchableOpacity>
+
+      <View style={doAddTask ? styles.addTaskBox : styles.hide}>
+        <AddTaskBox/>
+      </View>
+
       <View style={styles.sliderContainer}>
         <TaskSlider tasks={tasks} region={region} setRegion={setRegion}/>
       </View>
@@ -51,17 +91,12 @@ function HomeScreen({ tasks }) {
           <Marker
             key={index}
             coordinate={marker.latlng}
-            title={"Task: " + marker.title}
+            title={marker.title}
             description={marker.description}
           >
             <Image source={require('../assets/marker-icon.png')} style={{height: 35, width:35 }} />
           </Marker>
         ))}
-          <Marker
-            key={-1}
-            coordinate={{ "latitude" : location ? location.coords.latitude : 0, "longitude" :  location ? location.coords.longitude : 0}}
-            title={"Your Location"}
-          />
       </MapView>
     </View>
   );
@@ -111,16 +146,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  }, addTaskBox: {
+    width: '90%',
+    height: '50%',
+    position: 'absolute',
+    bottom: '35%',
+    zIndex: 100,
+    flex: 1,
+    justifyContent: 'center',
+  }, hide: {
+    display: 'none'
+  }, imageRotated: {
+    height: 30,
+    width: 30,
+    borderRadius: 64,
+    transform: [{rotate: '45 deg'}]
   }
 
 });
-
-// Creates new post
-//  - directs user to new post form
-//  - posts new task to database
-//  - after submission, returns user to home map
-function createPost() {
-  alert("TBC")
-}
 
 export default HomeScreen;
