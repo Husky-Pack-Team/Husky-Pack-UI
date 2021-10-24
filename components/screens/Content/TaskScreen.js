@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
+import {useEffect, useState} from "react";
 
 function TaskScreen({ tasks, userName}) {
   const styles = StyleSheet.create({
@@ -53,8 +54,27 @@ function TaskScreen({ tasks, userName}) {
     }
   })
 
-  function deleteTask(id) {
-    alert("Deleting " + id);
+  // null if nothing to delete, the code of the task to delete otherwise
+  const [toDeleteCode, setDeleteCode] = useState(null);
+
+  useEffect(() => {
+    if(toDeleteCode !== null) {
+      deleteTask(toDeleteCode).then(console.log("Deleted!"));
+    }
+    setDeleteCode(null);
+
+  })
+
+  async function deleteTask(code) {
+    alert("here")
+    const response = await fetch('https://huskypackapi.azurewebsites.net/api/task?function=remove' +
+        '&code='+ code,{
+      method: 'POST'
+    });
+
+    alert(code);
+    console.log(JSON.stringify(response));
+
   }
 
   function _renderItem(item, index) {

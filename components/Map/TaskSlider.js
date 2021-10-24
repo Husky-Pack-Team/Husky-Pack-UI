@@ -3,7 +3,7 @@ import {useState} from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-function TaskSlider({ tasks, region, setRegion, userName }) {
+function TaskSlider({ tasks, setRegion, userName }) {
 
   const [activeIndex, setIndex] = useState(0);
   

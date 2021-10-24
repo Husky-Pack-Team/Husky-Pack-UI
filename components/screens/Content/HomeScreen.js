@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { View, Text, Button, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useState, useEffect} from 'react';
 import TaskSlider from '../../Map/TaskSlider';
 import AddTaskBox from "../../Map/AddTaskBox";
 import * as Location from 'expo-location';
 
-function HomeScreen({ tasks, userName}) {
+function HomeScreen({ tasks, userName, id}) {
 
   const [activeIndex, setActiveIndex] = useState(0); 
   const [location, setLocation] = useState({"coords":{
@@ -50,6 +50,18 @@ function HomeScreen({ tasks, userName}) {
     setActiveIndex(i)
   }
 
+  async function createTask(title, desc, cost) {
+      const response = await fetch('https://huskypackapi.azurewebsites.net//api//task?function=add' +
+          '&title=' + title +
+          '&description=' + desc +
+          '&cost=' + cost +
+          '&id=' + id, {
+          method: 'POST',
+        });
+
+      alert(response);
+  }
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <TouchableOpacity 
@@ -60,7 +72,7 @@ function HomeScreen({ tasks, userName}) {
       </TouchableOpacity>
 
       <View key= {200} style={doAddTask ? styles.addTaskBox : styles.hide}>
-        <AddTaskBox/>
+        <AddTaskBox createNewTask={createTask()}/>
       </View>
 
       <View key = {2001} style={styles.sliderContainer}>
