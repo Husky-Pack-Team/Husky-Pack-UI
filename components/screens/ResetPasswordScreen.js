@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
 import { emailValidator } from '../helpers/emailValidator'
+import { CourierClient } from "@trycourier/courier";
 
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -14,8 +15,30 @@ export default function ResetPasswordScreen({ navigation }) {
     const emailError = emailValidator(email.value)
     if (emailError) {
       setEmail({ ...email, error: emailError })
+      alert("Something broke! Please confirm your inputs are valid.")
       return
     }
+    
+    /*
+    const courier = CourierClient(
+      { authorizationToken: "pk_prod_YS21X04A3649JBHY2RNP7RRHWMZ9"});
+
+    const { messageId } = await courier.send({
+      eventId: "courier-quickstart",
+      recipientId: "amitferman@gmail.com",
+      data: {
+        favoriteAdjective: "awesomeness"
+      },
+      profile: {
+        email: "amitferman@gmail.com"
+      }
+    });
+
+    alert("Password reset email [" + messageId + "] successfully sent to " + email.value + "!");
+    */
+
+    alert("Sorry! We haven't implemented this yet!")
+    return
     // reset password
     // TODO: implement sending email to given user
     // For fixing password: https://huskypackapi.azurewebsites.net/api/user/configure?id=0&password=superhusky
