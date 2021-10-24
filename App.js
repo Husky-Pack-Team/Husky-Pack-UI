@@ -5,25 +5,37 @@ import SettingsScreen from './components/SettingsScreen'
 import HomeScreen from './components/HomeScreen'
 import TaskScreen from './components/TaskScreen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useState} from "react";
 
 
 const Tab = createBottomTabNavigator();
 
 function App() {
+    async function fetchName() {
+        //todo fetch username
+        return "Lawrence"
+    }
+
+    const [name, setName] = useState("Lawrence");
+
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home">
-        <Tab.Screen 
-          name="Settings" 
-          component={SettingsScreen} 
-          options={{
-            tabBarLabel: 'Settings',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account-settings" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen 
+          <Tab.Screen
+              name="Settings"
+              children={() => <SettingsScreen
+                  name={name}
+                  setName={setName}
+              />}
+              options={{
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons name="account-settings" color={color} size={size} />
+                ),
+              }}
+          >
+          </Tab.Screen>
+          <Tab.Screen
           name="Home" 
           component={HomeScreen} 
           options={{
@@ -34,7 +46,7 @@ function App() {
           }}
         />
         <Tab.Screen 
-          name="Tasks" 
+          name="MyTasks" 
           component={TaskScreen} 
           options={{
             tabBarLabel: 'My Tasks',
