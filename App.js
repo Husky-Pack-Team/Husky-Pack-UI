@@ -19,12 +19,13 @@ const DismissKeyboard = ({ children }) => (
 );
 
 function App() {
-  async function fetchName() {
-      //todo fetch username
+  function fetchName() {
+      //todo fetch username, id, etc
       return "Lawrence Qupty"
   }
 
   const [name, setName] = useState("Lawrence Qupty");
+  const [id, setId] = useState(0);
 
   // Stores 'tasks' state, an obj representing all tasks around campus
   const [tasks, setTasks] = useState([]);
@@ -95,6 +96,7 @@ function App() {
               children={() => <HomeScreen
                   tasks={tasks}
                   userName={name}
+                  id={id}
               />}
               options={{
                 tabBarLabel: 'Home',
