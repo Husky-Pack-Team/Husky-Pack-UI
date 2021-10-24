@@ -6,7 +6,7 @@ import TaskSlider from './Map/TaskSlider';
 import AddTaskBox from "./Map/AddTaskBox";
 import * as Location from 'expo-location';
 
-function HomeScreen({ tasks }) {
+function HomeScreen({ tasks, id }) {
 
   const [activeIndex, setActiveIndex] = useState(0); 
   const [location, setLocation] = useState({"coords":{
@@ -25,6 +25,10 @@ function HomeScreen({ tasks }) {
     }
   )
   const [doAddTask, setAddTask] = useState(false);
+
+  function createTask(title, desc, cost) {
+    //TODO send task to backend with userID
+  }
 
   useEffect(() => {
     (async () => {
@@ -60,7 +64,7 @@ function HomeScreen({ tasks }) {
       </TouchableOpacity>
 
       <View key= {200} style={doAddTask ? styles.addTaskBox : styles.hide}>
-        <AddTaskBox/>
+        <AddTaskBox createNewTask={createTask}/>
       </View>
 
       <View key = {2001} style={styles.sliderContainer}>
