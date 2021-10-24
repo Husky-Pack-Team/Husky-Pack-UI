@@ -59,7 +59,7 @@ function HomeScreen({ tasks, userName, id}) {
           method: 'POST',
         });
 
-      alert(response);
+      //alert(response);
   }
 
   return (

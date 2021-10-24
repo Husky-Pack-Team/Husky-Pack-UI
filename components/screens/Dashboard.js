@@ -7,6 +7,7 @@ import TaskScreen from './Content/TaskScreen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useState, useEffect} from "react";
 import {View, Keyboard, TouchableWithoutFeedback} from "react-native";
+import { addSignPrefixAndSuffix } from 'react-native-currency-input/src/utils/formatNumber';
 
 export default function Dashboard({ navigation }) {
   const Tab = createBottomTabNavigator();
@@ -33,50 +34,40 @@ export default function Dashboard({ navigation }) {
   // Stores 'tasks' state, an obj representing all tasks around campus
   const [tasks, setTasks] = useState([]);
 
-  // This will fire only on mount. 
+  const [shouldUpdateUserList, setShouldUpdateUserList] = useState(true);
+
+  async function getTasks() {
+      const res = fetch('https://huskypackapi.azurewebsites.net/api/task?function=list')
+      const json = await res.json();
+      newTasks = []
+      for (let task of json) {
+        let res2 = await fetch('https://huskypackapi.azurewebsites.net/api/user?function=info&id=' + task.User)
+        let name = await res2.text();
+        let dif = (Math.random() - 0.5)/10
+        newTasks.push({
+          "name": name,
+          "title": task.title,
+          "description": task.description,
+          "price": task.cost,
+          "field": "Computer Science",
+          "verified": true,
+          "latlng": { "latitude" : 47.653293783515785 + dif, "longitude" :  -122.3057501213684 + dif},
+          "id": task.User,
+          "acceptor": ""
+        })        
+      }
+      setTasks(newTasks)
+  }
+
+  // This will fire only on mount.
   // Updates 'tasks' state according to database.
   useEffect(() => {
-    // 
-    // TODO: fetch back-end tasks on timer
-    // Temporary:
-    setTasks([
-      {
-        "name": "Amit Ferman",
-        "title": "Coffee",
-        "description": "Need coffee from Microsoft Cafe.",
-        "when": "ASAP",
-        "price": 7.50,
-        "field": "Computer Science",
-        "verified": true,
-        "latlng": { "latitude" : 47.653293783515785, "longitude" :  -122.3057501213684},
-        "id": 123,
-        "acceptor": ""
-      },
-      {
-        "name": "Daniel Berezansky",
-        "title": "Food",
-        "description": "Need Salmon to feed my bear.",
-        "when": "14:00",
-        "price": 50.00,
-        "field": "Computer Science",
-        "verified": true,
-        "latlng": { "latitude" : 47.65525229281891, "longitude" :  -122.30880783957718},
-        "id": 456,
-        "acceptor": ""
-      },
-      {
-        "name": "Lawrence Qupty",
-        "title": "Moving",
-        "description": "Need someone to help move my sofa.",
-        "when": "18:00",
-        "price": 10.00,
-        "verified": false,
-        "latlng": { "latitude" : 47.6577888506854, "longitude" :  -122.30641530919283},
-        "id": 789,
-        "acceptor": ""
-      }
-    ])
-  }, [])
+
+    window.setTimeout(() => {
+      getTasks()
+    }, 1000)
+
+  }, []);
 
   function numMyTasks() {
     var num = 0;

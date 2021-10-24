@@ -72,7 +72,7 @@ function TaskScreen({ tasks, userName}) {
       method: 'POST'
     });
 
-    alert(code);
+    // alert(code);
     console.log(JSON.stringify(response));
 
   }

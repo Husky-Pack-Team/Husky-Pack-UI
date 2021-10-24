@@ -38,7 +38,9 @@ export default function RegisterScreen({ navigation }) {
     if (!json.includes("User successfully added")) {
       alert("Registration failed. Please try again.")
     } else {
-      alert("Success!");
+      //verification
+
+      alert("Good New: You're a verified student!");
     }
     navigation.reset({
       index: 0,
