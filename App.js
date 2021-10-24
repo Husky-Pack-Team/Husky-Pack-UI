@@ -28,6 +28,7 @@ function App() {
   const [field, setField] = useState("Computer Science");
   const [interests, setInterests] = useState("Centering Buttons")
   const [id, setId] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Stores 'tasks' state, an obj representing all tasks around campus
   const [tasks, setTasks] = useState([]);
@@ -78,6 +79,7 @@ function App() {
   }, [])
 
   return (
+
     <DismissKeyboard>
       <NavigationContainer>
         <Tab.Navigator initialRouteName="Home">

@@ -26,7 +26,7 @@ function SettingsScreen({name, setName, field, setField, interests, setInterests
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', padding: 20}}>
         <Image source={require('../assets/husky-icon.jpg')} style={styles.image} />
-        <Text style={styles.title}>~~ A Wild Lawrence ~~</Text>
+        <Text style={styles.title}>Boundless Husky</Text>
         <Input
             value={name}
             label={"Name"}
