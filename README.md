@@ -1,7 +1,7 @@
 # husky-pack-ui
 
 ############################
-#      ACCESS PRODUCT      #
+# ACCESS PRODUCT (Android) #
 ############################
 
 1. Download "Expo Go" from your phone's app store
