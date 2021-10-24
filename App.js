@@ -7,8 +7,19 @@ import TaskScreen from './components/TaskScreen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useState, useEffect} from "react";
 import {View, Keyboard, TouchableWithoutFeedback} from "react-native";
+import { Provider } from 'react-native-paper'
+import { createStackNavigator } from '@react-navigation/stack'
+import { theme } from './components/src/core/theme'
+import {
+  StartScreen,
+  LoginScreen,
+  RegisterScreen,
+  ResetPasswordScreen,
+  Dashboard,
+} from './components/src/screens'
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator()
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -79,58 +90,78 @@ function App() {
   }, [])
 
   return (
-
-    <DismissKeyboard>
-      <NavigationContainer>
-        <Tab.Navigator initialRouteName="Home">
-          <Tab.Screen
-              name="Settings"
-              children={() => <SettingsScreen
-                  name={name}
-                  setName={setName}
-                  field={field}
-                  setField={setField}
-                  interests={interests}
-                  setInterests={setInterests}
-              />}
-              options={{
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="account-settings" color={color} size={size} />
-                ),
-              }}
+    !loggedIn ? 
+      <Provider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="StartScreen"
+            screenOptions={{
+              headerShown: false,
+            }}
           >
-          </Tab.Screen>
-          <Tab.Screen
-              name="Home"
-              children={() => <HomeScreen
-                  tasks={tasks}
-                  userName={name}
-                  id={id}
-              />}
-              options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="home" color={color} size={size} />
-                ),
-              }}
-          />
-          <Tab.Screen
-              name="My Tasks"
-              children={() => <TaskScreen
-                  tasks={tasks}
-                  userName={name}
-              />}
-              options={{
-                tabBarLabel: 'My Tasks',
-                tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="bell" color={color} size={size} />
-                ),
-              }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </DismissKeyboard>
+            <Stack.Screen name="StartScreen" component={StartScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen
+              name="ResetPasswordScreen"
+              component={ResetPasswordScreen}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+      :
+      <DismissKeyboard>
+        <NavigationContainer>
+          <Tab.Navigator initialRouteName="Home">
+            <Tab.Screen
+                name="Settings"
+                children={() => <SettingsScreen
+                    name={name}
+                    setName={setName}
+                    field={field}
+                    setField={setField}
+                    interests={interests}
+                    setInterests={setInterests}
+                />}
+                options={{
+                  tabBarLabel: 'Settings',
+                  tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="account-settings" color={color} size={size} />
+                  ),
+                }}
+            >
+            </Tab.Screen>
+            <Tab.Screen
+                name="Home"
+                children={() => <HomeScreen
+                    tasks={tasks}
+                    userName={name}
+                    id={id}
+                />}
+                options={{
+                  tabBarLabel: 'Home',
+                  tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="home" color={color} size={size} />
+                  ),
+                }}
+            />
+            <Tab.Screen
+                name="My Tasks"
+                children={() => <TaskScreen
+                    tasks={tasks}
+                    userName={name}
+                />}
+                options={{
+                  tabBarLabel: 'My Tasks',
+                  tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="bell" color={color} size={size} />
+                  ),
+                }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </DismissKeyboard>
   );
 }
 
