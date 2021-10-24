@@ -18,6 +18,10 @@ function TaskSlider({ tasks, region, setRegion, userName }) {
     setUpdate(update+1);
   }
 
+  function goToChat(id) {
+    alert ("Sorry! We haven't implemented this yet.")
+  }
+
 
   function _renderItem(data, index){
     const task = data.item;
@@ -44,7 +48,7 @@ function TaskSlider({ tasks, region, setRegion, userName }) {
           <Text style={styles.priceStyle}>${task.price}</Text>
           <TouchableOpacity
             style={task.acceptor != "" ? [styles.acceptBtn, {backgroundColor: "#cc9900"}] : styles.acceptBtn}
-            onPress={() => acceptTask(task.id)}
+            onPress={task.acceptor == "" ? () => acceptTask(task.id) : goToChat}
           >
             <Text style={styles.btnTextStyle}>{task.acceptor === "" ? "Accept" : "Chat"}</Text>
           </TouchableOpacity>

@@ -78,6 +78,19 @@ export default function Dashboard({ navigation }) {
     ])
   }, [])
 
+  function numMyTasks() {
+    var num = 0;
+    for (var i = 0; i < tasks.length; i++) {
+      var task = tasks[i];
+      if (task.name == fetchName()) {
+        num++;
+      }
+    }
+    return num;
+  }
+
+  const numTasks = numMyTasks();
+
   return (
     <DismissKeyboard>
         <NavigationContainer independent="true">
@@ -125,6 +138,7 @@ export default function Dashboard({ navigation }) {
                   tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="bell" color={color} size={size} />
                   ),
+                  tabBarBadge: numMyTasks()
                 }}
             />
           </Tab.Navigator>
